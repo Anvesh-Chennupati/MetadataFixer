@@ -12,7 +12,11 @@
 
 #Enter Host, Access key, Access Secret
 
-import os, sys,json
+import os
+import sys
+import json
+from tkinter import filedialog
+import tkinter as tk
 from acrcloud.recognizer import ACRCloudRecognizer
 
 if __name__ == '__main__':
@@ -23,13 +27,17 @@ if __name__ == '__main__':
         'access_secret':'arSiG2EtvkeRqzAwEOuKPkYLQr4PLXwz9nYXW48w',
         'timeout':10 # seconds
     }
-
     re = ACRCloudRecognizer(config)
 
     #recognize by file path, and skip 0 seconds from from the beginning of sys.argv[1].
     #print (re.recognize_by_file(sys.argv[1], 0))
 
-    buf = open(sys.argv[1], 'rb').read()
+    root = tk.Tk()
+    root.withdraw()
+    fileselection = filedialog.askopenfile()
+
+    #bla = "C:/Users/Anvesh/Desktop/MetaMan/TestSet/04 - Wake Me Up - Avicii - (www.SongsLover.pk).mp3"
+    buf = open(fileselection.name, 'rb').read()
     #recognize by file_audio_buffer that read from file path, and skip 0 seconds from from the beginning of sys.argv[1].
     songdata = re.recognize_by_filebuffer(buf, 0)
 
