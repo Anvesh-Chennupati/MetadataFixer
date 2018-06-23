@@ -32,19 +32,46 @@ if __name__ == '__main__':
     #recognize by file path, and skip 0 seconds from from the beginning of sys.argv[1].
     #print (re.recognize_by_file(sys.argv[1], 0))
 
+    def recognizer(filename = None):
+        buf = open(filename, 'rb').read()
+        #recognize by file_audio_buffer that read from file path, and skip 0 seconds from from the beginning of sys.argv[1].
+        songdata = re.recognize_by_filebuffer(buf, 0)
+
+        #converting string data to Json
+        songdataJson = json.loads(songdata)
+        return printer(filename,songdataJson)
+
+    def printer(filename=None,songdataJson=None):
+        #print(songdataJson)
+        try:
+            f= open("songdata.txt","a+")
+            print(filename)
+            f.write('\n')
+            f.write(filename)
+            f.write('\n')
+            print('Title:-> '+songdataJson['metadata']['music'][0]['title'])
+            f.write('Title:-> '+songdataJson['metadata']['music'][0]['title'])
+            f.write('\n')
+            print('Youtube link:-> '+ 'https://www.youtube.com/watch?v='+songdataJson['metadata']['music'][0]['external_metadata']['youtube']['vid'])
+            f.write('Youtube link:-> '+ 'https://www.youtube.com/watch?v='+songdataJson['metadata']['music'][0]['external_metadata']['youtube']['vid'])
+            f.write('\n')
+            print('Artist:-> '+songdataJson['metadata']['music'][0]['artists'][0]['name'])
+            f.write('Artist:-> '+songdataJson['metadata']['music'][0]['artists'][0]['name'])
+            f.write('\n')
+            print('\n')
+            f.close()
+        except KeyError:
+            f= open("songdata.txt","a+")
+            print('Youtube source not found for above Track: '+ filename)
+            f.write('Youtube source not found for above Track: '+ filename)
+            f.write('\n')
+            f.close()
+        else:
+            pass
     root = tk.Tk()
     root.withdraw()
-    fileselection = filedialog.askopenfile()
-
-    #bla = "C:/Users/Anvesh/Desktop/MetaMan/TestSet/04 - Wake Me Up - Avicii - (www.SongsLover.pk).mp3"
-    buf = open(fileselection.name, 'rb').read()
-    #recognize by file_audio_buffer that read from file path, and skip 0 seconds from from the beginning of sys.argv[1].
-    songdata = re.recognize_by_filebuffer(buf, 0)
-
-    #converting string data to Json
-    songdataJson = json.loads(songdata)
-
-    print(songdataJson)
-    print('\n','Title:-> '+songdataJson['metadata']['music'][0]['title'])
-    print('\n','Youtube link:-> '+ 'https://www.youtube.com/watch?v='+songdataJson['metadata']['music'][0]['external_metadata']['youtube']['vid'])
-    print('\n','Artist:-> '+songdataJson['metadata']['music'][0]['artists'][0]['name'])
+    folderpath = filedialog.askdirectory()
+    src_files = os.listdir(folderpath)
+    for file_name in src_files:
+        full_file_name = os.path.join(folderpath, file_name)
+        recognizer(full_file_name)
