@@ -1,6 +1,17 @@
 #  MetadataFixer
-Fixes the Metadata of audio files on local machine. Uses Spotipy, acrcloud and many more
-Create a backup (Recommended)
+Fixes the Metadata of audio files on local machine. Uses Spotipy, acrcloud
+
+<b>Instructions</b>
+
+- Execute Core/acrReco.py
+- Select the directory containing the audio src_files
+- Supports .mp3, .m4a, .flac
+
+<b> Disclaimer</b>
+- Still in development stage
+- Take a backup of your Data
+- Report any bugs if found :)
+
 
 <b>Creating ACR Cloud Keys</b>
 - Install acrcloud_sdk_python
