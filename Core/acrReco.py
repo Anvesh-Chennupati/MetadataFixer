@@ -18,6 +18,7 @@ import json
 from tkinter import filedialog
 import tkinter as tk
 from acrcloud.recognizer import ACRCloudRecognizer
+import parseJson
 
 if __name__ == '__main__':
     config = {
@@ -29,7 +30,7 @@ if __name__ == '__main__':
     }
     re = ACRCloudRecognizer(config)
 
-    #recognize by file path, and skip 0 seconds from from the beginning of sys.argv[1].
+    #recogni5ze by file path, and skip 0 seconds from from the beginning of sys.argv[1].
     #print (re.recognize_by_file(sys.argv[1], 0))
 
     def recognizer(filename = None):
@@ -39,7 +40,8 @@ if __name__ == '__main__':
 
         #converting string data to Json
         songdataJson = json.loads(songdata)
-        return printer(filename,songdataJson)
+        #return printer(filename,songdataJson)
+        parseJson.parseSongJson(filename.replace('/','\\'),songdataJson)
 
     def printer(filename=None,songdataJson=None):
         #print(songdataJson)
