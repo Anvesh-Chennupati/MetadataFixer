@@ -4,7 +4,7 @@ Fixes the Metadata of audio files on local machine. Uses Spotipy, acrcloud
 <b>Instructions</b>
 
 - Install the requirements first.
-- pip install -r requirements.txt
+- <b> pip install -r requirements.txt</b>
 - Execute Core/acrReco.py
 - Select the directory containing the audio src_files
 - Supports .mp3, .m4a, .flac
